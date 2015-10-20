@@ -88,13 +88,21 @@ console.log(rows)
     plot.selectAll('line')
         .data(rows)
         .enter()
-        .append('line')
-        .attr('x1', rows.gdpPerCap)
-        .attr('y1', rows.primComp)
-        .attr('x2', rows.gdpPerCap)
-        .attr('y2', rows.urbanPop)
-        .style('stroke','rgb(80,80,80)')
-        .style('stroke-width','2px');
 
+        .append('line')
+        .attr('x1', function(d) {return scaleX(d.gdpPerCap)})
+        .attr('x2', function(d) {return scaleX(d.gdpPerCap)})
+        .attr('y1', height)
+        .attr('y2', function(d) {return scaleY(d.urbanPop)})
+        .style('stroke','blue')
+        .style('stroke-width','2px')
+
+        .append('line')
+        .attr('x1', function(d) {return scaleX(d.gdpPerCap)})
+        .attr('x2', function(d) {return scaleX(d.gdpPerCap)})
+        .attr('y1', height)
+        .attr('y2', function(d) {return scaleY(d.primComp)})
+        .style('stroke','red')
+        .style('stroke-width','2px');
 }
 
