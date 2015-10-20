@@ -38,10 +38,10 @@ p{
     fill:none
 }
 .axis .tick line{
-    stroke:rgb(180,180,180);
-    stroke-width:1px;
+    stroke:rgb(220,220,220);
+    stroke-width:.5px;
 }
 .axis .tick text{
     font-size:10px;
-    fill:rgb(180,180,180);
+    fill:rgb(100,100,100);
 }
