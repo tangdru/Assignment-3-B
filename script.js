@@ -102,7 +102,7 @@ function dataLoaded(error, rows) {
         .attr('x1', function (d) {return scaleX(d.gdpPerCap)})
         .attr('x2', function (d) {return scaleX(d.gdpPerCap)})
         .attr('y1', height)
-        .attr('y2', function(d) {return scaleY(d.primCompRate)})
+        .attr('y2', function(d) {return scaleY(d.primComp)})
         .style('stroke', 'rgb(000,120,255)')
         .style('stroke-width', '1px');
 
