@@ -71,7 +71,7 @@ function dataLoaded(error, rows) {
     //Log scale for x, linear scale for y
     //scaleX = d3.scale.log()...
     scaleX = d3.scale.log().domain([gdpPerCapMin, gdpPerCapMax]).range([0, width]),
-    scaleY = d3.scale.linear().domain([0, 125]).range([height, 0]);
+    scaleY = d3.scale.linear().domain([0, 140]).range([height, 0]);
 
     //Draw axisX and axisY
     axisX.scale(scaleX);
@@ -103,6 +103,7 @@ function dataLoaded(error, rows) {
         .attr('class', 'country')
 
     countries.append('line')
+        .filter(function(d){return d.primComp !== undefined})
         .attr('x1', function (d) {return scaleX(d.gdpPerCap)})
         .attr('x2', function (d) {return scaleX(d.gdpPerCap)})
         .attr('y1', height)
@@ -125,6 +126,7 @@ function dataLoaded(error, rows) {
         });
 
     countries.append('line')
+        .filter(function(d){return d.urbanPop !== undefined})
         .attr('x1', function(d) {return scaleX(d.gdpPerCap)})
         .attr('x2', function(d) {return scaleX(d.gdpPerCap)})
         .attr('y1', height)
