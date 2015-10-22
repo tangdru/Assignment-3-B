@@ -45,3 +45,17 @@ p{
     font-size:10px;
     fill:rgb(100,100,100);
 }
+
+div.tooltip {
+	position: absolute;
+	text-align: center;
+	font-weight: bold;
+	width: 50px;
+	height: 18px;
+	padding: 2px;
+	font: 12px sans-serif;
+	background:rgb(255,255,255);
+	border: 0px;
+	border-radius: 8px;
+	pointer-events: none;
+}
