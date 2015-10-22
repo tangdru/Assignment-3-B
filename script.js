@@ -20,11 +20,11 @@ var scaleX,scaleY;
 var axisX = d3.svg.axis()
     .orient('bottom')
     .tickSize(-height)
-    /*tickValues()*/;
+     .tickValues(0);
 var axisY = d3.svg.axis()
     .orient('left')
     .tickSize(-width)
-    .tickValues([0,25,50,75,100]);
+    .tickValues([0,25,50,75,100,125]);
 
 
 //Start importing data
@@ -71,7 +71,7 @@ function dataLoaded(error, rows) {
     //Log scale for x, linear scale for y
     //scaleX = d3.scale.log()...
     scaleX = d3.scale.log().domain([gdpPerCapMin, gdpPerCapMax]).range([0, width]),
-    scaleY = d3.scale.linear().domain([0, 100]).range([height, 0]);
+    scaleY = d3.scale.linear().domain([0, 125]).range([height, 0]);
 
     //Draw axisX and axisY
     axisX.scale(scaleX);
@@ -104,7 +104,10 @@ function dataLoaded(error, rows) {
         .attr('y1', height)
         .attr('y2', function(d) {return scaleY(d.primComp)})
         .style('stroke', 'rgb(000,120,255)')
-        .style('stroke-width', '1px');
+        .style('stroke-width', '2px')
+        .on('mouseover', function(d){
+            console.log(d)
+        });
 
     countries.append('line')
         .attr('x1', function(d) {return scaleX(d.gdpPerCap)})
@@ -112,7 +115,11 @@ function dataLoaded(error, rows) {
         .attr('y1', height)
         .attr('y2', function(d) {return scaleY(d.urbanPop)})
         .style('stroke','rgb(255,100,230)')
-        .style('stroke-width','1px');
+        .style('stroke-width','2px')
+        .on('mouseover',function(d){
+            console.log(d)
+
+        });
 
     /*why isn't this working???
 
