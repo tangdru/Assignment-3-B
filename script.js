@@ -53,20 +53,25 @@ function parse(d){
 
 }
 
-function dataLoaded(error, rows){
+function dataLoaded(error, rows) {
     //with data loaded, we can now mine the data
-console.log(rows)
+    console.log(rows)
 
-    var gdpPerCapMin = d3.min(rows, function(d){return d.gdpPerCap}),
-        gdpPerCapMax = d3.max(rows, function(d){return d.gdpPerCap});
+    var gdpPerCapMin = d3.min(rows, function (d) {return d.gdpPerCap}),
 
-    console.log(gdpPerCapMin, gdpPerCapMax)
+        gdpPerCapMax = d3.max(rows, function (d) {return d.gdpPerCap}),
+
+        primCompMax = d3.max(rows, function (d){return d.primComp}),
+
+        urbanPopMax = d3.max(rows, function (d){return d.urbanPop});
+
+    console.log(gdpPerCapMin, gdpPerCapMax, primCompMax, urbanPopMax)
 
     //with mined information, set up domain and range for x and y scales
     //Log scale for x, linear scale for y
     //scaleX = d3.scale.log()...
-    scaleX = d3.scale.log().domain([gdpPerCapMin,gdpPerCapMax]).range([0,width]),
-    scaleY = d3.scale.linear().domain([0,100]).range([height,0]);
+    scaleX = d3.scale.log().domain([gdpPerCapMin, gdpPerCapMax]).range([0, width]),
+    scaleY = d3.scale.linear().domain([0, 100]).range([height, 0]);
 
     //Draw axisX and axisY
     axisX.scale(scaleX);
@@ -74,28 +79,87 @@ console.log(rows)
 
     plot
         .append('g')
-        .attr('class','axis axis-x')
-        .attr('transform','translate(0,'+height+')')
+        .attr('class', 'axis axis-x')
+        .attr('transform', 'translate(0,' + height + ')')
         .call(axisX);
 
     plot
         .append('g')
-        .attr('class','axis axis-y')
+        .attr('class', 'axis axis-y')
         .call(axisY);
 
     //draw <line> elements to represent countries
     //each country should have two <line> elements, nested under a common <g> element
-    plot.selectAll('line')
+
+
+    var countries = plot.selectAll('.country')
         .data(rows)
         .enter()
+        .append('g')
+        .attr('class', 'country')
 
+    countries.append('line')
+        .attr('x1', function (d) {return scaleX(d.gdpPerCap)})
+        .attr('x2', function (d) {return scaleX(d.gdpPerCap)})
+        .attr('y1', height)
+        .attr('y2', function(d) {return scaleY(d.primCompRate)})
+        .style('stroke', 'rgb(000,120,255)')
+        .style('stroke-width', '1px');
+
+    countries.append('line')
+        .attr('x1', function(d) {return scaleX(d.gdpPerCap)})
+        .attr('x2', function(d) {return scaleX(d.gdpPerCap)})
+        .attr('y1', height)
+        .attr('y2', function(d) {return scaleY(d.urbanPop)})
+        .style('stroke','rgb(255,100,230)')
+        .style('stroke-width','1px');
+
+    /*why isn't this working???
+
+    var group = d3.selectAll('g')
+
+        .data(rows)
+        .enter()
+        .append('line')
+     .attr('class','lineRed')
+     .attr('x1', function(d) {return scaleX(d.gdpPerCap)})
+     .attr('x2', function(d) {return scaleX(d.gdpPerCap)})
+     .attr('y1', height)
+     .attr('y2', function(d) {return scaleY(d.urbanPop)})
+     .style('stroke','rgb(000,100,255)')
+     .style('stroke-width','1.5px')
+     .on('click',function(d) {
+     console.log(d);
+     })
+
+
+     .append('line')
+     .attr('class','lineBlue')
+     .attr('x1', function(d) {return scaleX(d.gdpPerCap)})
+     .attr('x2', function(d) {return scaleX(d.gdpPerCap)})
+     .attr('y1', height)
+     .attr('y2', function(d) {return scaleY(d.primComp)})
+     .style('stroke','red')
+     .style('stroke-width','1px')
+     .on('click',function(d) {
+     console.log(d);
+
+
+
+    /*this definitely isn't right
+    plot.selectAll('g')
+        .data(rows)
+        .enter()
         .append('line')
         .attr('x1', function(d) {return scaleX(d.gdpPerCap)})
         .attr('x2', function(d) {return scaleX(d.gdpPerCap)})
         .attr('y1', height)
         .attr('y2', function(d) {return scaleY(d.urbanPop)})
-        .style('stroke','blue')
-        .style('stroke-width','2px')
+        .style('stroke','rgb(000,100,255)')
+        .style('stroke-width','1.5px')
+        .on('click',function(d){
+            console.log(d);
+        })
 
         .append('line')
         .attr('x1', function(d) {return scaleX(d.gdpPerCap)})
@@ -103,6 +167,9 @@ console.log(rows)
         .attr('y1', height)
         .attr('y2', function(d) {return scaleY(d.primComp)})
         .style('stroke','red')
-        .style('stroke-width','2px');
+        .style('stroke-width','1px')
+        .on('click',function(d){
+            console.log(d);*/
+
 }
 
