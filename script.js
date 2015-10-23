@@ -109,19 +109,19 @@ function dataLoaded(error, rows) {
         .attr('y1', height)
         .attr('y2', function(d) {return scaleY(d.primComp)})
         .style('stroke', 'rgb(000,120,255)')
-        .style('stroke-width', '2px')
+        .style('stroke-width', '1.5px')
         .on('mouseover', function(d){
             console.log(d)
             div.transition()
-                .duration(200)
+                .duration(10)
                 .style("opacity", .9);
-            div .html(d.ctrCode)
+            div .html(d.ctrName+ ", " +d.primComp)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
         })
         .on("mouseout", function(d) {
             div.transition()
-                .duration(500)
+                .duration(400)
                 .style("opacity", 0)
         });
 
@@ -132,19 +132,19 @@ function dataLoaded(error, rows) {
         .attr('y1', height)
         .attr('y2', function(d) {return scaleY(d.urbanPop)})
         .style('stroke','rgb(255,100,230)')
-        .style('stroke-width','2px')
+        .style('stroke-width','1.5px')
         .on('mouseover',function(d){
             console.log(d)
             div.transition()
-                .duration(200)
+                .duration(10)
                 .style("opacity",.9);
-            div .html(d.ctrCode)
+            div .html(d.ctrName+ ", " + d.urbanPop)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
         })
         .on("mouseout", function(d) {
             div.transition()
-                .duration(500)
+                .duration(400)
                 .style("opacity", 0)
 
         });
