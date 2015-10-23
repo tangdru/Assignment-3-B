@@ -21,6 +21,7 @@ var axisX = d3.svg.axis()
     .orient('bottom')
     .tickSize(-height)
      .tickValues(0);
+
 var axisY = d3.svg.axis()
     .orient('left')
     .tickSize(-width)
@@ -109,7 +110,7 @@ function dataLoaded(error, rows) {
         .attr('y1', height)
         .attr('y2', function(d) {return scaleY(d.primComp)})
         .style('stroke', 'rgb(000,120,255)')
-        .style('stroke-width', '1.5px')
+        .style('stroke-width', '1.25px')
         .on('mouseover', function(d){
             console.log(d)
             div.transition()
@@ -117,7 +118,7 @@ function dataLoaded(error, rows) {
                 .style("opacity", .9);
             div .html(d.ctrName+ ", " +d.primComp)
                 .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
+                .style("top", (d3.event.pageY - 30) + "px");
         })
         .on("mouseout", function(d) {
             div.transition()
@@ -132,7 +133,7 @@ function dataLoaded(error, rows) {
         .attr('y1', height)
         .attr('y2', function(d) {return scaleY(d.urbanPop)})
         .style('stroke','rgb(255,100,230)')
-        .style('stroke-width','1.5px')
+        .style('stroke-width','1.25px')
         .on('mouseover',function(d){
             console.log(d)
             div.transition()
@@ -140,7 +141,7 @@ function dataLoaded(error, rows) {
                 .style("opacity",.9);
             div .html(d.ctrName+ ", " + d.urbanPop)
                 .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
+                .style("top", (d3.event.pageY - 30) + "px");
         })
         .on("mouseout", function(d) {
             div.transition()
